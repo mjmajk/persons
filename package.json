@@ -1,5 +1,5 @@
 {
-  "name": "7commidities",
+  "name": "pipedrive-persons",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,24 +7,22 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "code:check": "tsc && eslint src --ext .ts,.tsx --fix",
-    "locale": "i18next-scanner --config i18next-scanner.config.cjs"
+    "code:check": "tsc && eslint src --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.0.10",
-    "eslint-plugin-airbnb": "^0.0.1-security",
     "formik": "^2.2.9",
-    "i18next": "^21.8.14",
-    "immer": "^9.0.15",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^11.18.1",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-router-dom": "^6.3.0",
+    "react-notifications": "^1.7.4",
+    "react-notifications-component": "^4.0.1",
     "react-spinners": "^0.13.4",
     "styled-components": "^5.3.5",
+    "styled-icons": "^10.45.0",
     "use-outside-click": "^1.0.0",
+    "yup": "^0.32.11",
     "zustand": "^4.0.0"
   },
   "devDependencies": {
@@ -40,6 +38,7 @@
     "@vitejs/plugin-react": "^2.0.0",
     "eslint": "^8.20.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-airbnb": "^0.0.1-security",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
     "vite-plugin-i18next-scanner": "^0.4.0",

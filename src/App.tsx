@@ -1,10 +1,10 @@
-import Header from 'components/Header'
-import { PersonsList } from 'components/PersonsList'
-import { data } from './data'
-import { useAddPerson } from 'hooks/addPerson'
-import React, { useEffect } from 'react'
+import Header from 'components/molecules/Header'
 import styled from 'styled-components'
+
 import './App.css'
+import 'react-notifications-component/dist/theme.css'
+import { Persons } from 'components/molecules/Persons'
+import { Modals } from 'components/molecules/Modals'
 
 const Container = styled.div`
   max-width: 992px;
@@ -15,7 +15,8 @@ const App = () => {
   return (
     <Container>
       <Header />
-      <PersonsList />
+      <Persons />
+      <Modals />
     </Container>
   )
 }

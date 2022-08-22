@@ -1,18 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { API } from 'API'
-
-interface LabeledRecord {
-  label: string
-  primary: boolean
-  value: string
-}
-
-export interface Person {
-  id: string
-  company_id: string
-  email: Array<LabeledRecord>
-  name: string
-}
+import { API, Routes } from 'API'
+import { Person, Tags } from 'types'
 
 export const LIMIT = 10
 
@@ -30,11 +18,11 @@ interface Response {
 
 export const usePersonsList = () => {
   return useInfiniteQuery<Response>(
-    ['personsList'],
-    ({ pageParam }) => API.get('/persons', { limit: LIMIT, start: pageParam }),
+    [Tags.PERSONS],
+    ({ pageParam }) =>
+      API.get(Routes.PERSONS_LIST, { limit: LIMIT, start: pageParam, sort: 'id DESC' }),
     {
       getNextPageParam: (lastPage) => lastPage.additional_data.pagination.next_start,
-      refetchOnMount: false,
       refetchOnWindowFocus: false,
     },
   )

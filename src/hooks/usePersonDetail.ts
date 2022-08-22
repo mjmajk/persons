@@ -1,17 +1,18 @@
 import { useQuery } from '@tanstack/react-query'
-import { API } from 'API'
-import { LabeledRecord } from 'types'
+import { API, replaceId, Routes } from 'API'
+import { Person, Tags } from 'types'
 
 interface Response {
-  data: {
-    first_name: string
-    primary_email: string
-    name: string
-    phone: LabeledRecord[]
-    company_id: number
-  }
+  data: Person
 }
 
 export const usePersonDetail = (id: string) => {
-  return useQuery<Response>(['detail', id], () => API.get(`/persons/${id}`))
+  return useQuery<Response>(
+    [Tags.PERSONS, id],
+    () => API.get(replaceId(Routes.PERSON_DETAIL, id)),
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    },
+  )
 }

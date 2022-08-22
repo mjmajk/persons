@@ -9,8 +9,5 @@ module.exports = {
     plugins: [
         "@typescript-eslint"
     ],
-    rules:{
-        code: 50
-    }
-    project: "@typescript"
+
 }
