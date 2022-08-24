@@ -1,38 +1,27 @@
-import Flex from 'components/atoms/Flex'
-import Loader from 'components/atoms/Loader'
-
-import { LIMIT, usePersonsList } from 'hooks/usePersonsList'
-import { Fragment } from 'react'
+import { Button } from 'components/atoms/Button'
+import { Fragment, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchMorePersons, getPersons } from 'state/modules/persons/slice'
+import { RootState } from 'state/types'
 import PersonPreview from '../PersonPreview'
-import PersonsInfiniteLoad from '../PersonsInfiniteLoad'
 
 export const PersonsList = () => {
-  const { data, fetchNextPage, hasNextPage } = usePersonsList()
-  const itemsLength = data ? data.pages?.length * LIMIT : 0
+  const persons = useSelector((state: RootState) => state.persons.persons)
+  const hasMore = useSelector((state: RootState) => state.persons.hasNext)
+  const dispatch = useDispatch()
 
-  if (!data) {
-    return (
-      <Flex jc="center">
-        <Loader size={100} />
-      </Flex>
-    )
-  }
+  console.log(persons)
 
-  console.log(data.pages[data.pages.length - 1].data[0])
+  useEffect(() => {
+    dispatch(getPersons())
+  }, [])
 
   return (
-    <PersonsInfiniteLoad
-      length={itemsLength}
-      fetchNext={() => fetchNextPage()}
-      hasMore={!!hasNextPage}
-    >
-      {data?.pages.map((page) => (
-        <Fragment key={page.additional_data.pagination.start}>
-          {page.data.map((person) => (
-            <PersonPreview key={person.id} person={person} />
-          ))}
-        </Fragment>
+    <Fragment>
+      {persons.map((person) => (
+        <PersonPreview key={person.id} person={person} />
       ))}
-    </PersonsInfiniteLoad>
+      {hasMore && <Button onClick={() => dispatch(fetchMorePersons())}>More</Button>}
+    </Fragment>
   )
 }

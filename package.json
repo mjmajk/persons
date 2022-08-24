@@ -10,6 +10,7 @@
     "code:check": "tsc && eslint src --ext .ts,.tsx --fix"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "@tanstack/react-query": "^4.0.10",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
@@ -18,7 +19,9 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-notifications": "^1.7.4",
     "react-notifications-component": "^4.0.1",
+    "react-redux": "^8.0.2",
     "react-spinners": "^0.13.4",
+    "redux-saga": "^1.2.1",
     "styled-components": "^5.3.5",
     "styled-icons": "^10.45.0",
     "use-outside-click": "^1.0.0",

@@ -5,16 +5,20 @@ import { ThemeProvider } from 'styled-components'
 import { theme } from 'theme'
 import App from './App'
 import { ReactNotifications } from 'react-notifications-component'
+import { Provider } from 'react-redux'
+import { store } from 'state'
 
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <ReactNotifications />
-        <App />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <ReactNotifications />
+          <App />
+        </ThemeProvider>
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>,
 )
