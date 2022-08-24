@@ -3,10 +3,9 @@ import { AvatarSize } from 'components/atoms/Avatar/styled'
 import Divider from 'components/atoms/Divider'
 import Loader from 'components/atoms/Loader'
 import Modal from 'components/molecules/Modal'
-import { useAddPersonPicture } from 'hooks/addPersonPicture'
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPersonDetail } from 'state/modules/personDetail/slice'
+import { addImage, getPersonDetail } from 'state/modules/personDetail/slice'
 import { RootState } from 'state/types'
 import { AdditionalInfo, Container, Label, Name, Phone, Value } from './styled'
 
@@ -22,17 +21,13 @@ export const PersonalDetailModal: FC<Props> = ({ id }) => {
     dispatch(getPersonDetail(id))
   }, [])
 
-  const { mutate, isLoading: isUploadingPicture } = useAddPersonPicture()
-
   const image = user?.picture_id?.pictures?.[512]
 
   const submit = async (file?: File | null) => {
     if (!file) {
       return
     }
-    const body = new FormData()
-    body.append('file', file)
-    mutate({ id: id, body })
+    dispatch(addImage({ file, id }))
   }
 
   return (
@@ -42,7 +37,7 @@ export const PersonalDetailModal: FC<Props> = ({ id }) => {
 
         {user && (
           <>
-            {isUploadingPicture ? (
+            {isLoading ? (
               <Loader size={`${AvatarSize.Large}rem`} />
             ) : (
               <Avatar

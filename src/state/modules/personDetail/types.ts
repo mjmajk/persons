@@ -10,7 +10,7 @@ export interface LabeledRecord {
   value: string
 }
 
-interface Picture {
+export interface Picture {
   pictures: {
     128: string
     512: string
@@ -30,4 +30,9 @@ export interface Person {
 
 export interface GetDetailResponse {
   data: Person
+}
+
+export interface AddPictureResponse {
+  success: boolean
+  data: Picture
 }

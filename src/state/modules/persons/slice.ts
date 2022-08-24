@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Picture } from '../personDetail/types'
 import { GetPersonsResponse, PersonState } from './types'
 
 const initialState: PersonState = {
@@ -32,6 +33,15 @@ const personSlice = createSlice({
     fetchMorePersons(state) {
       state.isLoading = true
     },
+    updateListUserImage(state, action: PayloadAction<{ id: string; picture: Picture }>) {
+      const payload = action.payload
+
+      const user = state.persons?.find((item) => item.id === payload.id)
+
+      if (user) {
+        user.picture_id = payload.picture
+      }
+    },
   },
 })
 
@@ -41,6 +51,7 @@ export const {
   getPersonsSuccess,
   fetchMorePersons,
   getMorePersonsSuccess,
+  updateListUserImage,
 } = personSlice.actions
 
 export default personSlice.reducer

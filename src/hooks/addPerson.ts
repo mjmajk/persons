@@ -4,7 +4,6 @@ import { FormValues } from 'components/molecules/AddNewPersonModal/schema'
 import { useModalStore } from 'store/modal'
 import { Person } from 'types'
 import { displayNotification } from 'utils/notifications'
-import { useAddPersonPicture } from './addPersonPicture'
 
 interface Params {
   values: FormValues
@@ -17,7 +16,6 @@ interface Response {
 }
 
 export const useAddPerson = () => {
-  const { mutate: addPersonPicture, isLoading: isUploadingFoto } = useAddPersonPicture()
   const queryClient = useQueryClient()
   const closeModal = useModalStore((state) => state.closeModal)
 
@@ -33,8 +31,6 @@ export const useAddPerson = () => {
         if (variables.image) {
           const formData = new FormData()
           formData.append('file', variables.image)
-
-          addPersonPicture({ id: data.data.id, body: formData }, { onSuccess: closeModal })
         } else {
           queryClient.invalidateQueries()
           closeModal()
@@ -43,5 +39,5 @@ export const useAddPerson = () => {
     },
   )
 
-  return { ...data, isLoading: data.isLoading || isUploadingFoto }
+  return { ...data, isLoading: data.isLoading }
 }
