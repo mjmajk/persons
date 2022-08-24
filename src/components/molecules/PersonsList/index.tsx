@@ -10,8 +10,6 @@ export const PersonsList = () => {
   const hasMore = useSelector((state: RootState) => state.persons.hasNext)
   const dispatch = useDispatch()
 
-  console.log(persons)
-
   useEffect(() => {
     dispatch(getPersons())
   }, [])

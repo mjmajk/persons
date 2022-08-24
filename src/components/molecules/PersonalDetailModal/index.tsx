@@ -4,8 +4,10 @@ import Divider from 'components/atoms/Divider'
 import Loader from 'components/atoms/Loader'
 import Modal from 'components/molecules/Modal'
 import { useAddPersonPicture } from 'hooks/addPersonPicture'
-import { usePersonDetail } from 'hooks/usePersonDetail'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPersonDetail } from 'state/modules/personDetail/slice'
+import { RootState } from 'state/types'
 import { AdditionalInfo, Container, Label, Name, Phone, Value } from './styled'
 
 interface Props {
@@ -13,11 +15,14 @@ interface Props {
 }
 
 export const PersonalDetailModal: FC<Props> = ({ id }) => {
-  const { data, isLoading } = usePersonDetail(id)
+  const { personsDetail: user, isLoading } = useSelector((state: RootState) => state.personDetail)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getPersonDetail(id))
+  }, [])
 
   const { mutate, isLoading: isUploadingPicture } = useAddPersonPicture()
-
-  const user = data?.data
 
   const image = user?.picture_id?.pictures?.[512]
 
